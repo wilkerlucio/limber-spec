@@ -24,7 +24,7 @@ class LimberSpec_Spec
     private $spec;
     private $matchers;
     
-    public function __construct($description, $block)
+    public function __construct($description, $block = null)
     {
         $this->description = $description;
         $this->spec = $block;
@@ -34,6 +34,14 @@ class LimberSpec_Spec
     public function run()
     {
         $spec = $this->spec;
+        
+        if ($spec === null) {
+            return array(
+                "kind" => "pending",
+                "description" => $this->description
+            );
+        }
+        
         $spec($this);
         
         $pass = true;

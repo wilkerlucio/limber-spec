@@ -28,6 +28,7 @@ define("LEVEL_SIZE", 2);
 
 $passing = 0;
 $failing = 0;
+$pending = 0;
 $failure_details = array();
 
 function print_context($context, $level = 0)
@@ -64,6 +65,19 @@ function print_spec($spec, $level = 0)
     echo "\033[0m\n";
 }
 
+function print_pending($spec, $level = 0)
+{
+    global $pending;
+    
+    $pending++;
+    
+    echo str_repeat(" ", $level * LEVEL_SIZE);
+    
+    echo "\033[33m";
+    echo $spec["description"] . " (PENDING)";
+    echo "\n";
+}
+
 foreach ($results as $suite) {
     print_context($suite);
 }
@@ -79,8 +93,11 @@ foreach ($failure_details as $key => $spec) {
 
 echo "\033[0m";
 
-$total = $passing + $failing;
+$total = $passing + $failing + $pending;
 
 echo "\n";
 echo "Finished in " . round($end_time - $start_time, 3) . " seconds\n\n";
-echo "\033[34;1m$total examples\033[0m, \033[32;1m$passing success\033[0m, \033[31;1m$failing failures\033[0m";
+echo "\033[34;1m$total examples\033[0m, \033[32;1m$passing success\033[0m";
+if ($failing > 0) echo ", \033[31;1m$failing failures\033[0m";
+if ($pending > 0) echo ", \033[33;1m$pending pending\033[0m";
+echo "\n";

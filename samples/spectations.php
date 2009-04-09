@@ -17,6 +17,8 @@
  */
 
 describe("Some test spectations", function($spec) {
+    $spec->it("should show as not implemented when there is no given function");
+    
     $spec->context("testing 'be' spectations", function($spec) {
         $spec->it("should test for true value", function($spec) {
             $spec(true)->should->be(true);
@@ -48,6 +50,20 @@ describe("Some test spectations", function($spec) {
         
         $spec->it("should fail when comparing same numbers with different types", function($spec) {
             $spec(30)->should->be(30.0);
+        });
+        
+        $spec->it("should pass when comparing arrays with equal data", function($spec) {
+            $spec(array("one", "two", "three"))->should->be(array("one", "two", "three"));
+        });
+        
+        $spec->it("should fail when comparing arrays with different data", function($spec) {
+            $spec(array("one", "two", "three"))->should->be(array("one", "two", "three", "four"));
+        });
+    });
+    
+    $spec->context("testing 'include' spectations", function ($spec) {
+        $spec->it("should pass if the array contains the element", function($spec) {
+            
         });
     });
 });

@@ -31,7 +31,7 @@ class LimberSpec_Context
         $this->specs = array();
     }
     
-    public function it($description, $block)
+    public function it($description, $block = null)
     {
         $this->specs[] = new LimberSpec_Spec($description, $block);
     }
