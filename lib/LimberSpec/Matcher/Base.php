@@ -46,9 +46,10 @@ abstract class LimberSpec_Matcher_Base
             case "NULL":
                 return 'null';
             case "integer":
+                return sprintf("%d", $data);
             case "double":
             case "float":
-                return $data . "";
+                return sprintf("%f", $data);
             case "array":
                 return 'array(' . implode(', ', array_map(array($this, 'var_dump'), $data)) . ')';
             case "object":
