@@ -17,13 +17,37 @@
  */
 
 describe("Some test spectations", function($spec) {
-    $spec->context("testing some assertions", function($spec) {
+    $spec->context("testing 'be' spectations", function($spec) {
         $spec->it("should test for true value", function($spec) {
             $spec(true)->should->be(true);
         });
         
         $spec->it("should give an error for false be true", function($spec) {
             $spec(false)->should->be(true);
+        });
+        
+        $spec->it("should pass when comparing equal strings", function($spec) {
+            $spec("im the string")->should->be("im the string");
+        });
+        
+        $spec->it("should fail when comparing different strings", function($spec) {
+            $spec("im the string")->should->be("im the different string");
+        });
+        
+        $spec->it("should fail when comparing strings and numbers (with same string result)", function($spec) {
+            $spec("30")->should->be(30);
+        });
+        
+        $spec->it("should pass when comparing equal numbers", function($spec) {
+            $spec(30)->should->be(30);
+        });
+        
+        $spec->it("should fail when comparing different numbers", function($spec) {
+            $spec(30)->should->be(31);
+        });
+        
+        $spec->it("should fail when comparing same numbers with different types", function($spec) {
+            $spec(30)->should->be(30.0);
         });
     });
 });
