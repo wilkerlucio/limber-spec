@@ -20,12 +20,15 @@ require_once dirname(__FILE__) . "/../lib/LimberSpec.php";
 
 include_once dirname(__FILE__) . "/../samples/spectations.php";
 
+$start_time = microtime(true);
 $results = LimberSpec::run_all();
+$end_time = microtime(true);
 
-define("LEVEL_SIZE", 4);
+define("LEVEL_SIZE", 2);
 
 $passing = 0;
 $failing = 0;
+$failure_details = array();
 
 function print_context($context, $level = 0)
 {
@@ -41,20 +44,24 @@ function print_context($context, $level = 0)
 
 function print_spec($spec, $level = 0)
 {
-    global $passing, $failing;
+    global $passing, $failing, $failure_details;
     
     echo str_repeat(" ", $level * LEVEL_SIZE);
     
     if ($spec["pass"]) {
-        echo "P";
         $passing++;
     } else {
-        echo "F";
         $failing++;
     }
     
-    echo " - ";
+    echo "- ";
     echo $spec["description"];
+    
+    if (!$spec["pass"]) {
+        $failure_details[] = $spec;
+        echo " (FAILED - " . count($failure_details) . ")";
+    }
+    
     echo "\n";
 }
 
@@ -62,7 +69,17 @@ foreach ($results as $suite) {
     print_context($suite);
 }
 
+echo "\n";
+
+foreach ($failure_details as $key => $spec) {
+    $n = $key + 1;
+    
+    echo "{$n}: {$spec["description"]}\n";
+    echo "  " . $spec["failure_message"] . "\n";
+}
+
 $total = $passing + $failing;
 
 echo "\n";
+echo "Finished in " . round($end_time - $start_time, 3) . " seconds\n\n";
 echo "$total specs, $passing success, $failing failures";
