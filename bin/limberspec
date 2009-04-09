@@ -1,0 +1,68 @@
+<?php
+
+/*
+ * Copyright 2009 Limber Framework
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ */
+
+require_once dirname(__FILE__) . "/../lib/LimberSpec.php";
+
+include_once dirname(__FILE__) . "/../samples/spectations.php";
+
+$results = LimberSpec::run_all();
+
+define("LEVEL_SIZE", 4);
+
+$passing = 0;
+$failing = 0;
+
+function print_context($context, $level = 0)
+{
+    echo str_repeat(" ", $level * LEVEL_SIZE);
+    echo $context["description"];
+    echo "\n";
+    
+    foreach ($context["items"] as $item) {
+        $fn = "print_" . $item["kind"];
+        $fn($item, $level + 1);
+    }
+}
+
+function print_spec($spec, $level = 0)
+{
+    global $passing, $failing;
+    
+    echo str_repeat(" ", $level * LEVEL_SIZE);
+    
+    if ($spec["pass"]) {
+        echo "P";
+        $passing++;
+    } else {
+        echo "F";
+        $failing++;
+    }
+    
+    echo " - ";
+    echo $spec["description"];
+    echo "\n";
+}
+
+foreach ($results as $suite) {
+    print_context($suite);
+}
+
+$total = $passing + $failing;
+
+echo "\n";
+echo "$total specs, $passing success, $failing failures";
