@@ -33,7 +33,7 @@ $failure_details = array();
 function print_context($context, $level = 0)
 {
     echo str_repeat(" ", $level * LEVEL_SIZE);
-    echo $context["description"];
+    echo "\033[34;1m" . $context["description"] . "\033[0m";
     echo "\n";
     
     foreach ($context["items"] as $item) {
@@ -54,22 +54,21 @@ function print_spec($spec, $level = 0)
         $failing++;
     }
     
-    echo "- ";
+    echo "\033[" . ($spec["pass"] ? 32 : 31) . "m";
     echo $spec["description"];
     
     if (!$spec["pass"]) {
         $failure_details[] = $spec;
-        echo " (FAILED - " . count($failure_details) . ")";
     }
     
-    echo "\n";
+    echo "\033[0m\n";
 }
 
 foreach ($results as $suite) {
     print_context($suite);
 }
 
-echo "\n";
+echo "\n\033[31m";
 
 foreach ($failure_details as $key => $spec) {
     $n = $key + 1;
@@ -78,8 +77,10 @@ foreach ($failure_details as $key => $spec) {
     echo "  " . $spec["failure_message"] . "\n";
 }
 
+echo "\033[0m";
+
 $total = $passing + $failing;
 
 echo "\n";
 echo "Finished in " . round($end_time - $start_time, 3) . " seconds\n\n";
-echo "$total specs, $passing success, $failing failures";
+echo "\033[34;1m$total examples\033[0m, \033[32;1m$passing success\033[0m, \033[31;1m$failing failures\033[0m";
