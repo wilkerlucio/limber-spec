@@ -42,25 +42,34 @@ class LimberSpec_Spec
             );
         }
         
-        $spec($this);
+        try {
+            $spec($this);
         
-        $pass = true;
-        $failure_message = null;
+            $pass = true;
+            $failure_message = null;
         
-        foreach ($this->matchers as $matcher) {
-            if (!$matcher->match()) {
-                $pass = false;
-                $failure_message = $matcher->failure_message();
-                break;
+            foreach ($this->matchers as $matcher) {
+                if (!$matcher->match()) {
+                    $pass = false;
+                    $failure_message = $matcher->failure_message();
+                    break;
+                }
             }
-        }
         
-        return array(
-            "kind" => "spec",
-            "pass" => $pass,
-            "description" => $this->description,
-            "failure_message" => $failure_message
-        );
+            return array(
+                "kind" => "spec",
+                "pass" => $pass,
+                "description" => $this->description,
+                "failure_message" => $failure_message
+            );
+        } catch (Exception $e) {
+            return array(
+                "kind" => "spec",
+                "pass" => false,
+                "description" => $this->description,
+                "failure_message" => $e->getMessage()
+            );
+        }
     }
     
     public function __invoke($current)
