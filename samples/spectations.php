@@ -24,7 +24,7 @@ describe("Limber-Spec", function($spec) {
             $spec(true)->should->be(true);
         });
         
-        $spec->it("should give an error for false be true", function($spec) {
+        $spec->it("should fail when comparing false to be true", function($spec) {
             $spec(false)->should->be(true);
         });
         
@@ -72,6 +72,16 @@ describe("Limber-Spec", function($spec) {
         
         $spec->it("should pass if multiple elements are contained at array", function($spec) {
             $spec(array("one", "two", "three"))->should->include(array("one", "three"));
+        });
+    });
+    
+    $spec->context("testing 'rematch' spectations", function($spec) {
+        $spec->it("should pass when matching a valid regular expression", function($spec) {
+            $spec("limber spec is cool")->should->rematch("/co{2}l$/");
+        });
+        
+        $spec->it("should fail when don't match with an valid regular expression", function($spec) {
+            $spec("limber spec is cool")->should->rematch("/ca{2}l$/");
         });
     });
 });
