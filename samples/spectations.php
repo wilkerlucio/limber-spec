@@ -16,8 +16,8 @@
  * limitations under the License. 
  */
 
-describe("Some test spectations", function($spec) {
-    $spec->it("should show as not implemented when there is no given function");
+describe("Limber-Spec", function($spec) {
+    $spec->it("should show as pending when there is no given function");
     
     $spec->context("testing 'be' spectations", function($spec) {
         $spec->it("should test for true value", function($spec) {
