@@ -27,6 +27,7 @@ class LimberSpec_Context
     
     private $data;
     
+    private $before_all;
     private $before_each;
     
     public function __construct($description, $block)
@@ -35,7 +36,13 @@ class LimberSpec_Context
         $this->block = $block;
         $this->specs = array();
         $this->data = new LimberSpec_Data();
+        $this->before_all = array();
         $this->before_each = array();
+    }
+    
+    public function before_all($block)
+    {
+        $this->before_all[] = $block;
     }
     
     public function before_each($block)
@@ -60,6 +67,10 @@ class LimberSpec_Context
         
         $before_each = $this->before_each;
         $data = $this->data;
+        
+        foreach ($this->before_all as $before) {
+            $before($data);
+        }
         
         return array(
             "kind" => "context",

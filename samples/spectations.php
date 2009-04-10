@@ -110,4 +110,30 @@ describe("Limber-Spec", function($spec) {
             });
         });
     });
+
+    $spec->context("testing before_all filter", function($spec) {
+        $spec->before_all(function($data) {
+            $data->string = "sample data";
+        });
+
+        $spec->it("should read the data", function($spec, $data) {
+            $spec("sample data")->should->be($data->string);
+        });
+
+        $spec->it("should not re-generate data after each spectation", function($spec, $data) {
+            $data->string = "changing data";
+
+            $spec($data->string)->should->be("changing data");
+        });
+
+        $spec->it("should not re-generate data after each spectation (validation)", function($spec, $data) {
+            $spec($data->string)->should->be("changing data");
+        });
+
+        $spec->context("inner context", function($spec) {
+            $spec->it("should not access parent generated filter data", function($spec, $data) {
+                $spec($data->string)->should->be(null);
+            });
+        });
+    });
 });
