@@ -93,6 +93,16 @@ describe("Limber-Spec", function($spec) {
         $spec->it("should read the data", function($spec, $data) {
             $spec("sample data")->should->be($data->string);
         });
+
+        $spec->it("should re-generate data after each spectation", function($spec, $data) {
+            $data->string = "changing data";
+
+            $spec($data->string)->should->be("changing data");
+        });
+
+        $spec->it("should re-generate data after each spectation (validation)", function($spec, $data) {
+            $spec($data->string)->should->be("sample data");
+        });
         
         $spec->context("inner context", function($spec) {
             $spec->it("should not access parent generated filter data", function($spec, $data) {
