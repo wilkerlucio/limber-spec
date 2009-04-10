@@ -23,12 +23,14 @@ class LimberSpec_Spec
     private $description;
     private $spec;
     private $matchers;
+    private $data;
     
-    public function __construct($description, $block = null)
+    public function __construct($description, $block = null, $data = null)
     {
         $this->description = $description;
         $this->spec = $block;
         $this->matchers = array();
+        $this->data = $data;
     }
     
     public function run()
@@ -43,7 +45,7 @@ class LimberSpec_Spec
         }
         
         try {
-            $spec($this);
+            $spec($this, $this->data);
         
             $pass = true;
             $failure_message = null;

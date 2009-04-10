@@ -84,4 +84,20 @@ describe("Limber-Spec", function($spec) {
             $spec("limber spec is cool")->should->rematch("/ca{2}l$/");
         });
     });
+    
+    $spec->context("testing before_each filter", function($spec) {
+        $spec->before_each(function($data) {
+            $data->string = "sample data";
+        });
+        
+        $spec->it("should read the data", function($spec, $data) {
+            $spec("sample data")->should->be($data->string);
+        });
+        
+        $spec->context("inner context", function($spec) {
+            $spec->it("should not access parent generated filter data", function($spec, $data) {
+                $spec($data->string)->should->be(null);
+            });
+        });
+    });
 });
