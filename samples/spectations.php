@@ -90,6 +90,10 @@ describe("Limber-Spec", function($spec) {
             $data->string = "sample data";
         });
         
+        $spec->before_each(function($data) {
+            $data->number = 20;
+        });
+        
         $spec->it("should read the data", function($spec, $data) {
             $spec("sample data")->should->be($data->string);
         });
@@ -102,6 +106,10 @@ describe("Limber-Spec", function($spec) {
 
         $spec->it("should re-generate data after each spectation (validation)", function($spec, $data) {
             $spec($data->string)->should->be("sample data");
+        });
+        
+        $spec->it("should run all the before_each filters", function($spec, $data) {
+            $spec($data->number)->should->be(20);
         });
         
         $spec->context("inner context", function($spec) {
