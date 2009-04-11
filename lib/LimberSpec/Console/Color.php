@@ -113,6 +113,9 @@ class LimberSpec_Console_Color
      * $my_string = "I'm a %bblue%0, with %g100%%%0";
      * echo LimberSpec_Console_Color::parse($my_string);
      * </code>
+     *
+     * @param string $string The string to parse
+     * @return string
      */
     public static function parse($string)
     {
