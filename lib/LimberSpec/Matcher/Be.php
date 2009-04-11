@@ -22,7 +22,7 @@ class LimberSpec_Matcher_Be extends LimberSpec_Matcher_Base
 {
     public function failure_message()
     {
-        return "The value should be " . $this->var_dump($this->expected) . ", got " . $this->var_dump($this->against);
+        return "The value should be " . $this->var_dump($this->against) . ", got " . $this->var_dump($this->expected);
     }
     
     public function match()
