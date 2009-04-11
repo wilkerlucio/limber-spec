@@ -144,4 +144,14 @@ describe("Limber-Spec", function($spec) {
             });
         });
     });
+    
+    $spec->context("testing should_not spectations", function($spec) {
+        $spec->it("should pass when comparing true to be false", function($spec, $data) {
+            $spec(true)->should_not->be(false);
+        });
+        
+        $spec->it("should pass when spectating a element to not be included", function($spec, $data) {
+            $spec(array("one", "two", "three"))->should_not->include("four");
+        });
+    });
 });
