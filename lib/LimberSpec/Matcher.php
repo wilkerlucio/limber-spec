@@ -21,10 +21,12 @@ class LimberSpec_Matcher
     private static $matchers_path = array();
     private $current;
     private $matcher;
+    private $negate;
     
     public function __construct($current)
     {
         $this->current = $current;
+        $this->negate = false;
     }
     
     public static function add_matcher_path($path)
@@ -34,7 +36,9 @@ class LimberSpec_Matcher
     
     public function match()
     {
-        return $this->matcher->match();
+        $result = $this->matcher->match();
+        
+        return $this->negate ? !$result : $result;
     }
     
     public function failure_message()
@@ -45,6 +49,11 @@ class LimberSpec_Matcher
     public function __get($property)
     {
         if ($property == 'should') {
+            return $this;
+        }
+        
+        if ($property == 'should_not') {
+            $this->negate = true;
             return $this;
         }
     }
