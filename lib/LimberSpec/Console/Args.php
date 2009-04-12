@@ -27,11 +27,17 @@ class LimberSpec_Console_Args
 {
     private $args;
     private $files;
+	private $options;
+	
+	private static $options_arity = array(
+		
+	);
     
     public function __construct()
     {
         $this->args = $_SERVER['argv'];
         $this->files = array();
+		$this->options = array();
         
         $this->parse();
     }
@@ -58,12 +64,43 @@ class LimberSpec_Console_Args
         return new LimberSpec_Console_Format_Specdoc($results);
     }
     
+	public function option($name)
+	{
+		return isset($this->options[$name]) ? $this->options[$name] : false;
+	}
+	
     private function parse()
     {
         array_shift($this->args);
         
         foreach ($this->args as $arg) {
-            $this->files[] = $arg;
+			if ($arg[0] == '-') {
+				$this->options[$arg] = true;
+			} elseif (is_dir($arg)) {
+				$this->scan_dir($arg);
+			} else {
+	            $this->files[] = $arg;
+			}
         }
     }
+
+	private function scan_dir($path)
+	{
+		$dir = opendir($path);
+		
+		while ($file = readdir($dir)) {
+			if ($file == '.' || $file == '..') continue;
+			
+			$fullpath = $path . '/' . $file;
+			
+			if (is_dir($fullpath) && $this->option("-r")) {
+				$this->scan_dir($fullpath);
+				continue;
+			}
+			
+			if (substr($file, -9) == '_spec.php') {
+				$this->files[] = $fullpath;
+			}
+		}
+	}
 }
