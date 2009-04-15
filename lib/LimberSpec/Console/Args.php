@@ -98,7 +98,7 @@ class LimberSpec_Console_Args
 				continue;
 			}
 			
-			if (substr($file, -9) == '_spec.php') {
+			if (preg_match("/_spec\.php$/i", $file)) {
 				$this->files[] = $fullpath;
 			}
 		}
