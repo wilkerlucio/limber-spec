@@ -18,67 +18,67 @@
 
 class LimberSpec_Matcher
 {
-    private static $matchers_path = array();
-    private $current;
-    private $matcher;
-    private $negate;
-    
-    public function __construct($current)
-    {
-        $this->current = $current;
-        $this->negate = false;
-    }
-    
-    public static function add_matcher_path($path)
-    {
-        self::$matchers_path[] = $path;
-    }
-    
-    public function match()
-    {
-        $result = $this->matcher->match();
-        
-        return $this->negate ? !$result : $result;
-    }
-    
-    public function failure_message()
-    {
-        return $this->matcher->failure_message();
-    }
-    
-    public function __get($property)
-    {
-        if ($property == 'should') {
-            return $this;
-        }
-        
-        if ($property == 'should_not') {
-            $this->negate = true;
-            return $this;
-        }
-    }
-    
-    public function __call($method, $args)
-    {
-        $file_name = str_replace("_", "", ucfirst($method));
-        
-        foreach (self::$matchers_path as $path) {
-            $matcher_path = $path . "/" . $file_name . ".php";
-            
-            if (file_exists($matcher_path)) {
-                require_once $matcher_path;
-                
-                $class_name = "LimberSpec_Matcher_" . $file_name;
-                $class = new $class_name($this->current, $args[0]);
-                
-                $this->matcher = $class;
-                
-                return $class;
-            }
-        }
-        
-        throw new LimberSpec_Matcher_Exception("Matcher '{$method}' was not found");
-    }
+	private static $matchers_path = array();
+	private $current;
+	private $matcher;
+	private $negate;
+	
+	public function __construct($current)
+	{
+		$this->current = $current;
+		$this->negate = false;
+	}
+	
+	public static function add_matcher_path($path)
+	{
+		self::$matchers_path[] = $path;
+	}
+	
+	public function match()
+	{
+		$result = $this->matcher->match();
+		
+		return $this->negate ? !$result : $result;
+	}
+	
+	public function failure_message()
+	{
+		return $this->matcher->failure_message();
+	}
+	
+	public function __get($property)
+	{
+		if ($property == 'should') {
+			return $this;
+		}
+		
+		if ($property == 'should_not') {
+			$this->negate = true;
+			return $this;
+		}
+	}
+	
+	public function __call($method, $args)
+	{
+		$file_name = str_replace("_", "", ucfirst($method));
+		
+		foreach (self::$matchers_path as $path) {
+			$matcher_path = $path . "/" . $file_name . ".php";
+			
+			if (file_exists($matcher_path)) {
+				require_once $matcher_path;
+				
+				$class_name = "LimberSpec_Matcher_" . $file_name;
+				$class = new $class_name($this->current, $args[0]);
+				
+				$this->matcher = $class;
+				
+				return $class;
+			}
+		}
+		
+		throw new LimberSpec_Matcher_Exception("Matcher '{$method}' was not found");
+	}
 }
 
 class LimberSpec_Matcher_Exception extends Exception {}

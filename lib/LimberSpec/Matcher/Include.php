@@ -20,23 +20,23 @@ require_once dirname(__FILE__) . "/Base.php";
 
 class LimberSpec_Matcher_Include extends LimberSpec_Matcher_Base
 {
-    public function failure_message()
-    {
-        return "The array " . $this->var_dump($this->expected) . ", don't include " . $this->var_dump($this->against);
-    }
-    
-    public function match()
-    {
-        if (is_array($this->against)) {
-            $pass = true;
-            
-            foreach ($this->against as $item) {
-                if (!in_array($item, $this->expected)) $pass = false;
-            }
-            
-            return $pass;
-        } else {
-            return in_array($this->against, $this->expected);
-        }
-    }
+	public function failure_message()
+	{
+		return "The array " . $this->var_dump($this->expected) . ", don't include " . $this->var_dump($this->against);
+	}
+	
+	public function match()
+	{
+		if (is_array($this->against)) {
+			$pass = true;
+			
+			foreach ($this->against as $item) {
+				if (!in_array($item, $this->expected)) $pass = false;
+			}
+			
+			return $pass;
+		} else {
+			return in_array($this->against, $this->expected);
+		}
+	}
 }

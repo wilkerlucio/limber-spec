@@ -21,100 +21,100 @@ require_once dirname(__FILE__) . "/../Color.php";
 
 class LimberSpec_Console_Format_Specdoc extends LimberSpec_Console_Format_Base
 {
-    const LEVEL_SIZE = 2;
-    
-    private $passing;
-    private $failing;
-    private $pending;
-    
-    private $failure_details;
-    
-    private $buffer;
-    
-    public function __construct($results)
-    {
-        parent::__construct($results);
-        
-        $this->passing = $this->failing = $this->pending = 0;
-        $this->failure_details = array();
-        $this->buffer = "";
-    }
-    
-    public function output()
-    {
-        foreach ($this->results as $suite) {
-            $this->print_context($suite);
-        }
+	const LEVEL_SIZE = 2;
+	
+	private $passing;
+	private $failing;
+	private $pending;
+	
+	private $failure_details;
+	
+	private $buffer;
+	
+	public function __construct($results)
+	{
+		parent::__construct($results);
+		
+		$this->passing = $this->failing = $this->pending = 0;
+		$this->failure_details = array();
+		$this->buffer = "";
+	}
+	
+	public function output()
+	{
+		foreach ($this->results as $suite) {
+			$this->print_context($suite);
+		}
 
-        $this->buffer .= "\n%r";
+		$this->buffer .= "\n%r";
 
-        foreach ($this->failure_details as $key => $spec) {
-            $n = $key + 1;
+		foreach ($this->failure_details as $key => $spec) {
+			$n = $key + 1;
 
-            $this->buffer .= "{$n}: {$spec["description"]}\n";
-            $this->buffer .= "  " . $spec["failure_message"] . "\n";
-        }
+			$this->buffer .= "{$n}: {$spec["description"]}\n";
+			$this->buffer .= "  " . $spec["failure_message"] . "\n";
+		}
 
-        $this->buffer .= "%0";
+		$this->buffer .= "%0";
 
-        $total = $this->passing + $this->failing + $this->pending;
+		$total = $this->passing + $this->failing + $this->pending;
 
-        $this->buffer .= "\n";
-        $this->buffer .= "%b%s$total examples%0, %g%s$this->passing success%0";
-        if ($this->failing > 0) $this->buffer .= ", %r%s$this->failing failures%0";
-        if ($this->pending > 0) $this->buffer .= ", %y%s$this->pending pending%0";
-        $this->buffer .= "\n";
-        
-        return LimberSpec_Console_Color::parse($this->buffer);
-    }
-    
-    private function indent($level = 0)
-    {
-        $this->buffer .= str_repeat(" ", $level * self::LEVEL_SIZE);
-    }
-    
-    private function print_context($context, $level = 0)
-    {
-        $this->indent($level);
-        
-        $this->buffer .= "%c{$context["description"]}%0";
-        $this->buffer .= "\n";
+		$this->buffer .= "\n";
+		$this->buffer .= "%b%s$total examples%0, %g%s$this->passing success%0";
+		if ($this->failing > 0) $this->buffer .= ", %r%s$this->failing failures%0";
+		if ($this->pending > 0) $this->buffer .= ", %y%s$this->pending pending%0";
+		$this->buffer .= "\n";
+		
+		return LimberSpec_Console_Color::parse($this->buffer);
+	}
+	
+	private function indent($level = 0)
+	{
+		$this->buffer .= str_repeat(" ", $level * self::LEVEL_SIZE);
+	}
+	
+	private function print_context($context, $level = 0)
+	{
+		$this->indent($level);
+		
+		$this->buffer .= "%c{$context["description"]}%0";
+		$this->buffer .= "\n";
 
-        foreach ($context["items"] as $item) {
-            $fn = "print_" . $item["kind"];
-            call_user_func(array($this, $fn), $item, $level + 1);
-        }
-    }
+		foreach ($context["items"] as $item) {
+			$fn = "print_" . $item["kind"];
+			call_user_func(array($this, $fn), $item, $level + 1);
+		}
+	}
 
-    private function print_spec($spec, $level = 0)
-    {
-        $this->indent($level);
+	private function print_spec($spec, $level = 0)
+	{
+		$this->indent($level);
 
-        if ($spec["pass"]) {
-            $this->passing++;
-        } else {
-            $this->failing++;
-        }
+		if ($spec["pass"]) {
+			$this->passing++;
+		} else {
+			$this->failing++;
+		}
 
-        $this->buffer .= $spec["pass"] ? '%g' : '%r';
-        $this->buffer .= $spec["description"];
+		$this->buffer .= $spec["pass"] ? '%g' : '%r';
+		$this->buffer .= $spec["description"];
 
-        if (!$spec["pass"]) {
-            $this->failure_details[] = $spec;
-            $this->buffer .= " (FAILED)";
-        }
+		if (!$spec["pass"]) {
+			$this->failure_details[] = $spec;
+			$this->buffer .= " (FAILED)";
+		}
 
-        $this->buffer .= "%0\n";
-    }
+		$this->buffer .= "%0\n";
+	}
 
-    private function print_pending($spec, $level = 0)
-    {
-        $this->pending++;
+	private function print_pending($spec, $level = 0)
+	{
+		$this->pending++;
 
-        $this->indent($level);
+		$this->indent($level);
 
-        $this->buffer .= "%y";
-        $this->buffer .= $spec["description"] . " (PENDING)";
-        $this->buffer .= "%0\n";
-    }
+		$this->buffer .= "%y";
+		$this->buffer .= $spec["description"] . " (PENDING)";
+		$this->buffer .= "%0\n";
+	}
 }

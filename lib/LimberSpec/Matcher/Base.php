@@ -18,44 +18,44 @@
 
 abstract class LimberSpec_Matcher_Base
 {
-    protected $expected;
-    protected $against;
-    
-    public function __construct($expected, $against)
-    {
-        $this->expected = $expected;
-        $this->against = $against;
-    }
-    
-    public function failure_message()
-    {
-        return $this->failure_message;
-    }
-    
-    public abstract function match();
-    
-    protected function var_dump($data)
-    {
-        $type = gettype($data);
-        
-        switch ($type) {
-            case "string":
-                return "'{$data}'";
-            case "boolean":
-                return $data ? 'true' : 'false';
-            case "NULL":
-                return 'null';
-            case "integer":
-                return sprintf("%d", $data);
-            case "double":
-            case "float":
-                return sprintf("%f", $data);
-            case "array":
-                return 'array(' . implode(', ', array_map(array($this, 'var_dump'), $data)) . ')';
-            case "object":
-                return $data->toString();
-            default:
-                throw new LimberSpec_Matcher_Exception("Unknow type '$type' when dumping data");
-        }
-    }
+	protected $expected;
+	protected $against;
+	
+	public function __construct($expected, $against)
+	{
+		$this->expected = $expected;
+		$this->against = $against;
+	}
+	
+	public function failure_message()
+	{
+		return $this->failure_message;
+	}
+	
+	public abstract function match();
+	
+	protected function var_dump($data)
+	{
+		$type = gettype($data);
+		
+		switch ($type) {
+			case "string":
+				return "'{$data}'";
+			case "boolean":
+				return $data ? 'true' : 'false';
+			case "NULL":
+				return 'null';
+			case "integer":
+				return sprintf("%d", $data);
+			case "double":
+			case "float":
+				return sprintf("%f", $data);
+			case "array":
+				return 'array(' . implode(', ', array_map(array($this, 'var_dump'), $data)) . ')';
+			case "object":
+				return $data->toString();
+			default:
+				throw new LimberSpec_Matcher_Exception("Unknow type '$type' when dumping data");
+		}
+	}
 }

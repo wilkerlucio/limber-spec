@@ -18,12 +18,12 @@
 
 abstract class LimberSpec_Console_Format_Base
 {
-    protected $results;
-    
-    public function __construct($results)
-    {
-        $this->results = $results;
-    }
-    
-    public abstract function output();
+	protected $results;
+	
+	public function __construct($results)
+	{
+		$this->results = $results;
+	}
+	
+	public abstract function output();
 }

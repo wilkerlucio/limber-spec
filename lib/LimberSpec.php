@@ -20,30 +20,30 @@ require_once dirname(__FILE__) . '/LimberSpec/Context.php';
 
 function describe($description, $block)
 {
-    new LimberSpec($description, $block);
+	new LimberSpec($description, $block);
 }
 
 class LimberSpec
 {
-    private $main_context;
-    private static $suites = array();
-    
-    public function __construct($description, $block)
-    {
-        $this->main_context = new LimberSpec_Context($description, $block);
-        
-        self::$suites[] = $this;
-    }
-    
-    public function run()
-    {
-        return $this->main_context->run();
-    }
-    
-    public static function run_all()
-    {
-        return array_map(function($suite) {
-            return $suite->run();
-        }, self::$suites);
-    }
+	private $main_context;
+	private static $suites = array();
+	
+	public function __construct($description, $block)
+	{
+		$this->main_context = new LimberSpec_Context($description, $block);
+		
+		self::$suites[] = $this;
+	}
+	
+	public function run()
+	{
+		return $this->main_context->run();
+	}
+	
+	public static function run_all()
+	{
+		return array_map(function($suite) {
+			return $suite->run();
+		}, self::$suites);
+	}
 }

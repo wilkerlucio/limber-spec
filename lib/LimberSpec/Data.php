@@ -18,20 +18,20 @@
 
 class LimberSpec_Data
 {
-    private $data;
-    
-    public function __construct()
-    {
-        $this->data = array();
-    }
-    
-    public function __get($property)
-    {
-        return isset($this->data[$property]) ? $this->data[$property] : null;
-    }
-    
-    public function __set($property, $value)
-    {
-        $this->data[$property] = $value;
-    }
+	private $data;
+	
+	public function __construct()
+	{
+		$this->data = array();
+	}
+	
+	public function __get($property)
+	{
+		return isset($this->data[$property]) ? $this->data[$property] : null;
+	}
+	
+	public function __set($property, $value)
+	{
+		$this->data[$property] = $value;
+	}
 }

@@ -20,13 +20,13 @@ require_once dirname(__FILE__) . "/Base.php";
 
 class LimberSpec_Matcher_Rematch extends LimberSpec_Matcher_Base
 {
-    public function failure_message()
-    {
-        return "The value " . $this->var_dump($this->expected) . " doesn't match with expression " . $this->var_dump($this->against);
-    }
-    
-    public function match()
-    {
-        return preg_match($this->against, $this->expected);
-    }
+	public function failure_message()
+	{
+		return "The value " . $this->var_dump($this->expected) . " doesn't match with expression " . $this->var_dump($this->against);
+	}
+	
+	public function match()
+	{
+		return preg_match($this->against, $this->expected);
+	}
 }

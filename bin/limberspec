@@ -26,13 +26,13 @@ $args = new LimberSpec_Console_Args();
 $files = $args->files();
 
 foreach ($files as $file) {
-    include_once $file;
+	include_once $file;
 }
 
 $results = array();
 
 $elapsed = LimberSpec_Performance::beenchmark(function() use (&$results) {
-    $results = LimberSpec::run_all();
+	$results = LimberSpec::run_all();
 });
 
 $formater = $args->formater($results);

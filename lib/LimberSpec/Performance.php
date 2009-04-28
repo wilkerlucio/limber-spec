@@ -25,30 +25,30 @@
  */
 class LimberSpec_Performance
 {
-    /**
-     * Calculate the time spended by a given block
-     *
-     * <code>
-     * $elapsed = LimberSpec_Performance::beenchmark(function() {
-     *     for ($i = 0; $i < 1000; $i++) {
-     *         $a[] = $i * 123;
-     *     }
-     * });
-     *
-     * echo "Executed block in {$elapsed} seconds";
-     * </code>
-     *
-     * @param function $block The block to beenchmark
-     * @return double Spended time
-     */
-    public static function beenchmark($block)
-    {
-        $start_time = microtime(true);
-        
-        $block();
-        
-        $end_time = microtime(true);
-        
-        return $end_time - $start_time;
-    }
+	/**
+	 * Calculate the time spended by a given block
+	 *
+	 * <code>
+	 * $elapsed = LimberSpec_Performance::beenchmark(function() {
+	 *     for ($i = 0; $i < 1000; $i++) {
+	 *         $a[] = $i * 123;
+	 *     }
+	 * });
+	 *
+	 * echo "Executed block in {$elapsed} seconds";
+	 * </code>
+	 *
+	 * @param function $block The block to beenchmark
+	 * @return double Spended time
+	 */
+	public static function beenchmark($block)
+	{
+		$start_time = microtime(true);
+		
+		$block();
+		
+		$end_time = microtime(true);
+		
+		return $end_time - $start_time;
+	}
 }

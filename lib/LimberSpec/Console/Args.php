@@ -25,64 +25,64 @@
  */
 class LimberSpec_Console_Args
 {
-    private $args;
-    private $files;
+	private $args;
+	private $files;
 	private $options;
 	
 	private static $options_arity = array(
 		
 	);
-    
-    public function __construct()
-    {
-        $this->args = $_SERVER['argv'];
-        $this->files = array();
+	
+	public function __construct()
+	{
+		$this->args = $_SERVER['argv'];
+		$this->files = array();
 		$this->options = array();
-        
-        $this->parse();
-    }
-    
-    /**
-     * Get the list of files to parse specs
-     *
-     * @return array
-     */
-    public function files()
-    {
-        return $this->files;
-    }
-    
-    /**
-     * Get the formater to use when outputting results
-     *
-     * @return LimberSpec_Console_Format_Base formatter
-     */
-    public function formater($results)
-    {
-        require_once dirname(__FILE__) . "/Format/Specdoc.php";
-        
-        return new LimberSpec_Console_Format_Specdoc($results);
-    }
-    
+		
+		$this->parse();
+	}
+	
+	/**
+	 * Get the list of files to parse specs
+	 *
+	 * @return array
+	 */
+	public function files()
+	{
+		return $this->files;
+	}
+	
+	/**
+	 * Get the formater to use when outputting results
+	 *
+	 * @return LimberSpec_Console_Format_Base formatter
+	 */
+	public function formater($results)
+	{
+		require_once dirname(__FILE__) . "/Format/Specdoc.php";
+		
+		return new LimberSpec_Console_Format_Specdoc($results);
+	}
+	
 	public function option($name)
 	{
 		return isset($this->options[$name]) ? $this->options[$name] : false;
 	}
 	
-    private function parse()
-    {
-        array_shift($this->args);
-        
-        foreach ($this->args as $arg) {
+	private function parse()
+	{
+		array_shift($this->args);
+		
+		foreach ($this->args as $arg) {
 			if ($arg[0] == '-') {
 				$this->options[$arg] = true;
 			} elseif (is_dir($arg)) {
 				$this->scan_dir($arg);
 			} else {
-	            $this->files[] = $arg;
+				$this->files[] = $arg;
 			}
-        }
-    }
+		}
+	}
 
 	private function scan_dir($path)
 	{
