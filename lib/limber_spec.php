@@ -45,8 +45,6 @@ class LimberSpec
 	
 	public static function run_all()
 	{
-		return array_map(function($suite) {
-			return $suite->run();
-		}, self::$suites);
+		return array_invoke(self::$suites, 'run');
 	}
 }
