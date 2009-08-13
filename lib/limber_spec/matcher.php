@@ -83,4 +83,4 @@ class LimberSpec_Matcher
 
 class LimberSpec_Matcher_Exception extends Exception {}
 
-LimberSpec_Matcher::add_matcher_path(dirname(__FILE__) . '/Matcher');
+LimberSpec_Matcher::add_matcher_path(dirname(__FILE__) . '/matcher');
