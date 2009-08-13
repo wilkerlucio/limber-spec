@@ -16,34 +16,17 @@
  * limitations under the License. 
  */
 
-require_once dirname(__FILE__) . '/LimberSpec/Context.php';
+require_once "limber_spec/matcher/base.php";
 
-function describe($description, $block)
+class LimberSpec_Matcher_Be extends LimberSpec_Matcher_Base
 {
-	new LimberSpec($description, $block);
-}
-
-class LimberSpec
-{
-	private $main_context;
-	private static $suites = array();
-	
-	public function __construct($description, $block)
+	public function failure_message()
 	{
-		$this->main_context = new LimberSpec_Context($description, $block);
-		
-		self::$suites[] = $this;
+		return "The value should be " . $this->var_dump($this->against) . ", got " . $this->var_dump($this->expected);
 	}
 	
-	public function run()
+	public function match()
 	{
-		return $this->main_context->run();
-	}
-	
-	public static function run_all()
-	{
-		return array_map(function($suite) {
-			return $suite->run();
-		}, self::$suites);
+		return ($this->against === $this->expected);
 	}
 }

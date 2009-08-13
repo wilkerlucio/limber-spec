@@ -16,8 +16,8 @@
  * limitations under the License. 
  */
 
-require_once dirname(__FILE__) . "/Base.php";
-require_once dirname(__FILE__) . "/../Color.php";
+require_once "limber_spec/console/format/base.php";
+require_once "limber_spec/console/color.php";
 
 class LimberSpec_Console_Format_Specdoc extends LimberSpec_Console_Format_Base
 {

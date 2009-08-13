@@ -16,7 +16,7 @@
  * limitations under the License. 
  */
 
-require_once dirname(__FILE__) . '/Matcher.php';
+require_once 'limber_spec/matcher.php';
 
 class LimberSpec_Spec
 {

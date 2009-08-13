@@ -16,8 +16,8 @@
  * limitations under the License. 
  */
 
-require_once dirname(__FILE__) . '/Spec.php';
-require_once dirname(__FILE__) . '/Data.php';
+require_once 'limber_spec/spec.php';
+require_once 'limber_spec/data.php';
 
 class LimberSpec_Context
 {

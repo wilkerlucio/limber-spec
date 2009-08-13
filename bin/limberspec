@@ -17,9 +17,12 @@
  * limitations under the License. 
  */
 
-require_once dirname(__FILE__) . "/../lib/LimberSpec.php";
-require_once dirname(__FILE__) . "/../lib/LimberSpec/Performance.php";
-require_once dirname(__FILE__) . "/../lib/LimberSpec/Console/Args.php";
+require_once 'limber_support.php';
+add_include_path(dirname(__FILE__) . "/../lib");
+
+require_once "limber_spec.php";
+require_once "limber_spec/performance.php";
+require_once "limber_spec/console/args.php";
 
 $args = new LimberSpec_Console_Args();
 

@@ -16,17 +16,27 @@
  * limitations under the License. 
  */
 
-require_once dirname(__FILE__) . "/Base.php"; 
+require_once "limber_spec/matcher/base.php";
 
-class LimberSpec_Matcher_Rematch extends LimberSpec_Matcher_Base
+class LimberSpec_Matcher_Include extends LimberSpec_Matcher_Base
 {
 	public function failure_message()
 	{
-		return "The value " . $this->var_dump($this->expected) . " doesn't match with expression " . $this->var_dump($this->against);
+		return "The array " . $this->var_dump($this->expected) . ", don't include " . $this->var_dump($this->against);
 	}
 	
 	public function match()
 	{
-		return preg_match($this->against, $this->expected);
+		if (is_array($this->against)) {
+			$pass = true;
+			
+			foreach ($this->against as $item) {
+				if (!in_array($item, $this->expected)) $pass = false;
+			}
+			
+			return $pass;
+		} else {
+			return in_array($this->against, $this->expected);
+		}
 	}
 }
