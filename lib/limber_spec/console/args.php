@@ -59,14 +59,17 @@ class LimberSpec_Console_Args
 	 */
 	public function formater($results)
 	{
-		require_once dirname(__FILE__) . "/Format/Specdoc.php";
+		$formater = $this->option("format", "simple");
+		$class_name = "LimberSpec_Console_Format_" . ucfirst($formater);
 		
-		return new LimberSpec_Console_Format_Specdoc($results);
+		require_once dirname(__FILE__) . "/Format/{$formater}.php";
+		
+		return new $class_name($results);
 	}
 	
-	public function option($name)
+	public function option($name, $default = false)
 	{
-		return isset($this->options[$name]) ? $this->options[$name] : false;
+		return isset($this->options[$name]) ? $this->options[$name] : $default;
 	}
 	
 	private function parse()
