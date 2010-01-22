@@ -21,12 +21,12 @@ namespace LimberSpec\Matchers;
 abstract class Base
 {
 	protected $expected;
-	protected $against;
+	protected $actual;
 	
-	public function __construct($against, $expected)
+	public function __construct($actual, $expected)
 	{
 		call_user_func_array(array($this, "set_args"), $expected);
-		$this->against = $against;
+		$this->actual = $actual;
 	}
 	
 	public function set_args($expected)

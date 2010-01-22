@@ -39,7 +39,7 @@ class ThrowException extends Base
 		$this->got_exception = "no exception";
 		
 		try {
-			$method = $this->against;
+			$method = $this->actual;
 			$method();
 		} catch (\Exception $e) {
 			$this->got_exception = $this->var_dump(get_class($e));

@@ -24,12 +24,12 @@ class Includes extends Base
 {
 	public function failure_message()
 	{
-		return "expected " . $this->var_dump($this->against) . " to include " . $this->var_dump($this->expected);
+		return "expected " . $this->var_dump($this->actual) . " to include " . $this->var_dump($this->expected);
 	}
 	
 	public function failure_message_for_should_not()
 	{
-		return "expected " . $this->var_dump($this->against) . " to exclude " . $this->var_dump($this->expected);
+		return "expected " . $this->var_dump($this->actual) . " to exclude " . $this->var_dump($this->expected);
 	}
 	
 	public function set_args()
@@ -42,13 +42,13 @@ class Includes extends Base
 	public function match()
 	{
 		if (is_array($this->expected)) {
-			$against = $this->against;
+			$actual = $this->actual;
 			
-			return array_all($this->expected, function($item) use ($against) {
-				return in_array($item, $against);
+			return array_all($this->expected, function($item) use ($actual) {
+				return in_array($item, $actual);
 			});
 		} else {
-			return in_array($this->expected, $this->against);
+			return in_array($this->expected, $this->actual);
 		}
 	}
 }

@@ -24,12 +24,12 @@ class Be extends Base
 {
 	public function failure_message()
 	{
-		return "expected " . $this->var_dump($this->expected) . " to be " . $this->var_dump($this->against);
+		return "expected " . $this->var_dump($this->expected) . " to be " . $this->var_dump($this->actual);
 	}
 	
 	public function match()
 	{
-		return ($this->against === $this->expected);
+		return ($this->actual === $this->expected);
 	}
 }
 
