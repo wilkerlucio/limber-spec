@@ -29,19 +29,19 @@ class Includes extends Base
 	
 	public function failure_message()
 	{
-		return "expected " . $this->var_dump($this->actual) . " to include " . $this->var_dump($this->expected);
+		return "expected " . $this->var_dump($this->actual) . " to include " . implode(", ", array_map(array($this, "var_dump"), $this->expected));
 	}
 	
 	public function failure_message_for_should_not()
 	{
-		return "expected " . $this->var_dump($this->actual) . " to exclude " . $this->var_dump($this->expected);
+		return "expected " . $this->var_dump($this->actual) . " to exclude " . implode(", ", array_map(array($this, "var_dump"), $this->expected));
 	}
 	
 	public function set_args()
 	{
 		$args = func_get_args();
 		
-		$this->expected = count($args) > 1 ? array_flatten($args) : $args[0];
+		$this->expected = $args;
 	}
 	
 	public function match()

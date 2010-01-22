@@ -72,6 +72,10 @@ describe("Limber-Spec", function($spec) {
 			$spec(array("one", "two", "three"))->should->includes("four");
 		});
 		
+		$spec->it("should fail in should_not if the elements are not contained", function($spec) {
+			$spec(array("one", "two", "three"))->should_not->include("one", "two");
+		});
+		
 		$spec->it("should pass if multiple elements are contained at array", function($spec) {
 			$spec(array("one", "two", "three"))->should->includes("one", "three");
 		});
