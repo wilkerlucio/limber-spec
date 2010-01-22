@@ -24,7 +24,7 @@ class Be extends Base
 {
 	public function failure_message()
 	{
-		return "The value should be " . $this->var_dump($this->expected) . ", got " . $this->var_dump($this->against);
+		return "expected " . $this->var_dump($this->expected) . " to be " . $this->var_dump($this->against);
 	}
 	
 	public function match()

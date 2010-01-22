@@ -24,7 +24,7 @@ class Rematch extends Base
 {
 	public function failure_message()
 	{
-		return "The value " . $this->var_dump($this->against) . " doesn't match with expression " . $this->var_dump($this->expected);
+		return "expected " . $this->var_dump($this->against) . " to match with expression " . $this->var_dump($this->expected);
 	}
 	
 	public function match()

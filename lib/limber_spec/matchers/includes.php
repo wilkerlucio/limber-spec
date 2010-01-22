@@ -24,7 +24,7 @@ class Includes extends Base
 {
 	public function failure_message()
 	{
-		return "The array " . $this->var_dump($this->against) . ", don't include " . $this->var_dump($this->expected);
+		return "expected " . $this->var_dump($this->against) . " to includes " . $this->var_dump($this->expected);
 	}
 	
 	public function match()
