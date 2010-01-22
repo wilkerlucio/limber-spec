@@ -26,7 +26,12 @@ class ThrowException extends Base
 	
 	public function failure_message()
 	{
-		return "expected function to throw " . $this->var_dump($this->expected) . ", got " . $this->got_exception;
+		return "expected to throw " . $this->var_dump($this->expected) . ", got " . $this->got_exception;
+	}
+	
+	public function failure_message_for_should_not()
+	{
+		return "expected to don't throw " . $this->var_dump($this->expected);
 	}
 	
 	public function match()
