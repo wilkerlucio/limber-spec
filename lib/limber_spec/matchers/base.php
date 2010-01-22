@@ -25,8 +25,13 @@ abstract class Base
 	
 	public function __construct($against, $expected)
 	{
-		$this->expected = $expected;
+		call_user_func_array(array($this, "set_args"), $expected);
 		$this->against = $against;
+	}
+	
+	public function set_args($expected)
+	{
+		$this->expected = $expected;
 	}
 	
 	public function failure_message()

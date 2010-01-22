@@ -68,7 +68,7 @@ class Matcher
 	{
 		if (isset(self::$matchers[$method])) {
 			$class_name = self::$matchers[$method];
-			$class = new $class_name($this->current, $args[0]);
+			$class = new $class_name($this->current, $args);
 			
 			$this->matcher = $class;
 			
