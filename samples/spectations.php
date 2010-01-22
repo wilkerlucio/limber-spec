@@ -99,6 +99,10 @@ describe("Limber-Spec", function($spec) {
 		$spec->it("should fail when got wrong exception", function($spec, $data) {
 			$spec(function() { throw new Exception(); })->should->throw_exception("ExampleException");
 		});
+		
+		$spec->it("should fail for should_not example", function($spec, $data) {
+			$spec(function() { throw new ExampleException(); })->should_not->throw_exception("ExampleException");
+		});
 	});
 	
 	$spec->context("testing before_each filter", function($spec) {
