@@ -23,7 +23,7 @@ abstract class Base
 	protected $expected;
 	protected $against;
 	
-	public function __construct($expected, $against)
+	public function __construct($against, $expected)
 	{
 		$this->expected = $expected;
 		$this->against = $against;

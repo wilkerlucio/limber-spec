@@ -24,12 +24,12 @@ class Rematch extends Base
 {
 	public function failure_message()
 	{
-		return "The value " . $this->var_dump($this->expected) . " doesn't match with expression " . $this->var_dump($this->against);
+		return "The value " . $this->var_dump($this->against) . " doesn't match with expression " . $this->var_dump($this->expected);
 	}
 	
 	public function match()
 	{
-		return preg_match($this->against, $this->expected);
+		return preg_match($this->expected, $this->against);
 	}
 }
 

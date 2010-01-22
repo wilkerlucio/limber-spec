@@ -24,21 +24,19 @@ class Includes extends Base
 {
 	public function failure_message()
 	{
-		return "The array " . $this->var_dump($this->expected) . ", don't include " . $this->var_dump($this->against);
+		return "The array " . $this->var_dump($this->against) . ", don't include " . $this->var_dump($this->expected);
 	}
 	
 	public function match()
 	{
-		if (is_array($this->against)) {
-			$pass = true;
+		if (is_array($this->expected)) {
+			$against = $this->against;
 			
-			foreach ($this->against as $item) {
-				if (!in_array($item, $this->expected)) $pass = false;
-			}
-			
-			return $pass;
+			return array_all($this->expected, function($item) use ($against) {
+				return in_array($item, $against);
+			});
 		} else {
-			return in_array($this->against, $this->expected);
+			return in_array($this->expected, $this->against);
 		}
 	}
 }
