@@ -16,7 +16,9 @@
  * limitations under the License. 
  */
 
-abstract class LimberSpec_Console_Format_Base
+namespace LimberSpec\Console\Format;
+
+abstract class Base
 {
 	protected $results;
 	
@@ -27,3 +29,5 @@ abstract class LimberSpec_Console_Format_Base
 	
 	public abstract function output();
 }
+
+class Exception extends \Exception {}

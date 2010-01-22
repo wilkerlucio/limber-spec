@@ -16,7 +16,9 @@
  * limitations under the License. 
  */
 
-abstract class LimberSpec_Matcher_Base
+namespace LimberSpec\Matchers;
+
+abstract class Base
 {
 	protected $expected;
 	protected $against;
@@ -55,7 +57,7 @@ abstract class LimberSpec_Matcher_Base
 			case "object":
 				return $data->toString();
 			default:
-				throw new LimberSpec_Matcher_Exception("Unknow type '$type' when dumping data");
+				throw new Exception("Unknow type '$type' when dumping data");
 		}
 	}
 }

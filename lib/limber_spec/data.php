@@ -16,7 +16,9 @@
  * limitations under the License. 
  */
 
-class LimberSpec_Data
+namespace LimberSpec;
+
+class Data
 {
 	private $data;
 	

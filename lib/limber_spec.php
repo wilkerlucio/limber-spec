@@ -33,7 +33,7 @@ class LimberSpec
 	
 	public function __construct($description, $block)
 	{
-		$this->main_context = new LimberSpec_Context($description, $block);
+		$this->main_context = new LimberSpec\Context($description, $block);
 		
 		self::$suites[] = $this;
 	}

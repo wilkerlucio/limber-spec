@@ -16,9 +16,11 @@
  * limitations under the License. 
  */
 
-require_once "limber_spec/matcher/base.php";
+namespace LimberSpec\Matchers;
 
-class LimberSpec_Matcher_Be extends LimberSpec_Matcher_Base
+require_once "limber_spec/matchers/base.php";
+
+class Be extends Base
 {
 	public function failure_message()
 	{

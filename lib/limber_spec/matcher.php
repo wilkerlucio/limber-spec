@@ -16,7 +16,9 @@
  * limitations under the License. 
  */
 
-class LimberSpec_Matcher
+namespace LimberSpec;
+
+class Matcher
 {
 	private static $matchers_path = array();
 	private $current;
@@ -68,7 +70,7 @@ class LimberSpec_Matcher
 			if (file_exists($matcher_path)) {
 				require_once $matcher_path;
 				
-				$class_name = "LimberSpec_Matcher_" . $file_name;
+				$class_name = "LimberSpec\\Matchers\\" . $file_name;
 				$class = new $class_name($this->current, $args[0]);
 				
 				$this->matcher = $class;
@@ -77,10 +79,10 @@ class LimberSpec_Matcher
 			}
 		}
 		
-		throw new LimberSpec_Matcher_Exception("Matcher '{$method}' was not found");
+		throw new MatcherNotFoundException("Matcher '{$method}' was not found");
 	}
 }
 
-class LimberSpec_Matcher_Exception extends Exception {}
+class MatcherNotFoundException extends \Exception {}
 
-LimberSpec_Matcher::add_matcher_path(dirname(__FILE__) . '/matcher');
+Matcher::add_matcher_path(dirname(__FILE__) . '/matchers');

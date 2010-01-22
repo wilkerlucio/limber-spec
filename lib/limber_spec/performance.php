@@ -16,6 +16,8 @@
  * limitations under the License. 
  */
 
+namespace LimberSpec;
+
 /**
  * LimberSpec_Performance Class
  */
@@ -23,7 +25,7 @@
 /**
  * This class provides helper methods for performance calculations
  */
-class LimberSpec_Performance
+class Performance
 {
 	/**
 	 * Calculate the time spended by a given block

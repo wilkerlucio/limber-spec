@@ -16,6 +16,8 @@
  * limitations under the License. 
  */
 
+namespace LimberSpec\Console;
+
 /**
  * LimberSpec_Console_Args class
  */
@@ -23,7 +25,7 @@
 /**
  * This class gives the support for reading console user arguments
  */
-class LimberSpec_Console_Args
+class Args
 {
 	private $args;
 	private $files;
@@ -60,7 +62,7 @@ class LimberSpec_Console_Args
 	public function formater($results)
 	{
 		$formater = $this->option("format", "simple");
-		$class_name = "LimberSpec_Console_Format_" . ucfirst($formater);
+		$class_name = "\\LimberSpec\\Console\\Format\\" . ucfirst($formater);
 		
 		require_once dirname(__FILE__) . "/Format/{$formater}.php";
 		

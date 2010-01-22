@@ -24,7 +24,7 @@ require_once "limber_spec.php";
 require_once "limber_spec/performance.php";
 require_once "limber_spec/console/args.php";
 
-$args = new LimberSpec_Console_Args();
+$args = new LimberSpec\Console\Args();
 
 $files = $args->files();
 
@@ -34,7 +34,7 @@ foreach ($files as $file) {
 
 $results = array();
 
-$elapsed = LimberSpec_Performance::beenchmark(function() use (&$results) {
+$elapsed = LimberSpec\Performance::beenchmark(function() use (&$results) {
 	$results = LimberSpec::run_all();
 });
 

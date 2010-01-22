@@ -16,10 +16,12 @@
  * limitations under the License. 
  */
 
+namespace LimberSpec\Console\Format;
+
 require_once "limber_spec/console/format/base.php";
 require_once "limber_spec/console/color.php";
 
-class LimberSpec_Console_Format_Simple extends LimberSpec_Console_Format_Base
+class Simple extends Base
 {
 	private $passing;
 	private $failing;
@@ -63,7 +65,7 @@ class LimberSpec_Console_Format_Simple extends LimberSpec_Console_Format_Base
 		if ($this->pending > 0) $this->buffer .= ", %y%s$this->pending pending%0";
 		$this->buffer .= "\n";
 		
-		return LimberSpec_Console_Color::parse($this->buffer);
+		return \LimberSpec\Console\Color::parse($this->buffer);
 	}
 	
 	private function print_context($context)

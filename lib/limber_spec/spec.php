@@ -16,9 +16,11 @@
  * limitations under the License. 
  */
 
+namespace LimberSpec;
+
 require_once 'limber_spec/matcher.php';
 
-class LimberSpec_Spec
+class Spec
 {
 	private $description;
 	private $spec;
@@ -76,7 +78,7 @@ class LimberSpec_Spec
 	
 	public function __invoke($current)
 	{
-		$matcher = new LimberSpec_Matcher($current);
+		$matcher = new Matcher($current);
 		$this->matchers[] = $matcher;
 		
 		return $matcher;

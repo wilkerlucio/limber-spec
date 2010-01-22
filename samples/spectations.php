@@ -61,17 +61,17 @@ describe("Limber-Spec", function($spec) {
 		});
 	});
 	
-	$spec->context("testing 'include' spectations", function ($spec) {
+	$spec->context("testing 'includes' spectations", function ($spec) {
 		$spec->it("should pass if the array contains the element", function($spec) {
-			$spec(array("one", "two", "three"))->should->include("two");
+			$spec(array("one", "two", "three"))->should->includes("two");
 		});
 		
 		$spec->it("should fail if the array don't contains the element", function($spec) {
-			$spec(array("one", "two", "three"))->should->include("four");
+			$spec(array("one", "two", "three"))->should->includes("four");
 		});
 		
 		$spec->it("should pass if multiple elements are contained at array", function($spec) {
-			$spec(array("one", "two", "three"))->should->include(array("one", "three"));
+			$spec(array("one", "two", "three"))->should->includes(array("one", "three"));
 		});
 	});
 	
@@ -151,7 +151,7 @@ describe("Limber-Spec", function($spec) {
 		});
 		
 		$spec->it("should pass when spectating a element to not be included", function($spec, $data) {
-			$spec(array("one", "two", "three"))->should_not->include("four");
+			$spec(array("one", "two", "three"))->should_not->includes("four");
 		});
 	});
 });

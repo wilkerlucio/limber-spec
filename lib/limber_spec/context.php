@@ -16,10 +16,12 @@
  * limitations under the License. 
  */
 
+namespace LimberSpec;
+
 require_once 'limber_spec/spec.php';
 require_once 'limber_spec/data.php';
 
-class LimberSpec_Context
+class Context
 {
 	private $description;
 	private $block;
@@ -35,7 +37,7 @@ class LimberSpec_Context
 		$this->description = $description;
 		$this->block = $block;
 		$this->specs = array();
-		$this->data = new LimberSpec_Data();
+		$this->data = new Data();
 		$this->before_all = array();
 		$this->before_each = array();
 	}
@@ -52,12 +54,12 @@ class LimberSpec_Context
 	
 	public function it($description, $block = null)
 	{
-		$this->specs[] = new LimberSpec_Spec($description, $block, $this->data);
+		$this->specs[] = new Spec($description, $block, $this->data);
 	}
 	
 	public function context($description, $block)
 	{
-		$this->specs[] = new LimberSpec_Context($description, $block);
+		$this->specs[] = new Context($description, $block);
 	}
 	
 	public function run()

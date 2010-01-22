@@ -16,7 +16,9 @@
  * limitations under the License. 
  */
 
-class LimberSpec_Console_Color
+namespace LimberSpec\Console;
+
+class Color
 {
 	private static $RESET = 0;
 	
@@ -75,7 +77,7 @@ class LimberSpec_Console_Color
 		);
 		
 		if (!isset($translation_map[$symbol])) {
-			throw new LimberSpec_Console_Color_Exception("Invalid symbol $symbol at parsing");
+			throw new Exception("Invalid symbol $symbol at parsing");
 		}
 		
 		return $translation_map[$symbol];
@@ -145,4 +147,4 @@ class LimberSpec_Console_Color
 	}
 }
 
-class LimberSpec_Console_Color_Exception extends Exception {}
+class Exception extends \Exception {}
