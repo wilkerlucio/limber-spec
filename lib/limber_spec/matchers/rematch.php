@@ -32,3 +32,5 @@ class Rematch extends Base
 		return preg_match($this->against, $this->expected);
 	}
 }
+
+\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\Rematch");

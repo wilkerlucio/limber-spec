@@ -32,3 +32,5 @@ class Be extends Base
 		return ($this->against === $this->expected);
 	}
 }
+
+\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\Be");

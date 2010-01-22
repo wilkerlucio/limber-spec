@@ -42,3 +42,5 @@ class Includes extends Base
 		}
 	}
 }
+
+\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\Includes");

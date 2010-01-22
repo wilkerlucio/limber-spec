@@ -20,7 +20,7 @@ namespace LimberSpec;
 
 class Matcher
 {
-	private static $matchers_path = array();
+	private static $matchers = array();
 	private $current;
 	private $matcher;
 	private $negate;
@@ -31,9 +31,11 @@ class Matcher
 		$this->negate = false;
 	}
 	
-	public static function add_matcher_path($path)
+	public static function add_matcher($matcher)
 	{
-		self::$matchers_path[] = $path;
+		echo "Adding matcher " . $matcher::name() . "\n";
+		
+		self::$matchers[$matcher::name()] = $matcher;
 	}
 	
 	public function match()
@@ -62,27 +64,19 @@ class Matcher
 	
 	public function __call($method, $args)
 	{
-		$file_name = str_replace("_", "", ucfirst($method));
-		
-		foreach (self::$matchers_path as $path) {
-			$matcher_path = $path . "/" . $file_name . ".php";
+		if (isset(self::$matchers[$method])) {
+			$class_name = self::$matchers[$method];
+			$class = new $class_name($this->current, $args[0]);
 			
-			if (file_exists($matcher_path)) {
-				require_once $matcher_path;
-				
-				$class_name = "LimberSpec\\Matchers\\" . $file_name;
-				$class = new $class_name($this->current, $args[0]);
-				
-				$this->matcher = $class;
-				
-				return $class;
-			}
+			$this->matcher = $class;
+			
+			return $class;
+		} else {
+			throw new MatcherNotFoundException("Matcher '{$method}' was not found");
 		}
-		
-		throw new MatcherNotFoundException("Matcher '{$method}' was not found");
 	}
 }
 
 class MatcherNotFoundException extends \Exception {}
 
-Matcher::add_matcher_path(dirname(__FILE__) . '/matchers');
+require_dir(__DIR__ . "/matchers");

@@ -60,4 +60,9 @@ abstract class Base
 				throw new Exception("Unknow type '$type' when dumping data");
 		}
 	}
+	
+	public static function name()
+	{
+		return str_underscore(str_demodulize(get_called_class()));
+	}
 }
