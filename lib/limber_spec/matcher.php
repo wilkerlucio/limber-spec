@@ -33,8 +33,6 @@ class Matcher
 	
 	public static function add_matcher($matcher)
 	{
-		echo "Adding matcher " . $matcher::name() . "\n";
-		
 		self::$matchers[$matcher::name()] = $matcher;
 	}
 	
