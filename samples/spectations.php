@@ -16,6 +16,8 @@
  * limitations under the License. 
  */
 
+class ExampleException extends Exception {}
+
 describe("Limber-Spec", function($spec) {
 	$spec->it("should show as pending when there is no given function");
 	
@@ -82,6 +84,20 @@ describe("Limber-Spec", function($spec) {
 		
 		$spec->it("should fail when don't match with an valid regular expression", function($spec) {
 			$spec("limber spec is cool")->should->rematch("/ca{2}l$/");
+		});
+	});
+	
+	$spec->context("testing 'throw_exception' spectations", function($spec) {
+		$spec->it("should pass when the exception is throw", function($spec, $data) {
+			$spec(function() { throw new ExampleException(); })->should->throw_exception("ExampleException");
+		});
+		
+		$spec->it("should fail when the exception is not throw", function($spec, $data) {
+			$spec(function() { return "hi"; })->should->throw_exception("ExampleException");
+		});
+		
+		$spec->it("should fail when got wrong exception", function($spec, $data) {
+			$spec(function() { throw new Exception(); })->should->throw_exception("ExampleException");
 		});
 	});
 	
