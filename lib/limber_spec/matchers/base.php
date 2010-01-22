@@ -34,6 +34,11 @@ abstract class Base
 		return $this->failure_message;
 	}
 	
+	public function failure_message_for_should_not()
+	{
+		return "don't " . $this->failure_message();
+	}
+	
 	public abstract function match();
 	
 	protected function var_dump($data)

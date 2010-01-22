@@ -45,7 +45,11 @@ class Matcher
 	
 	public function failure_message()
 	{
-		return $this->matcher->failure_message();
+		if ($this->negate) {
+			return $this->matcher->failure_message_for_should_not();
+		} else {
+			return $this->matcher->failure_message();
+		}
 	}
 	
 	public function __get($property)
