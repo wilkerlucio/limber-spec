@@ -75,6 +75,10 @@ describe("Limber-Spec", function($spec) {
 		$spec->it("should pass if multiple elements are contained at array", function($spec) {
 			$spec(array("one", "two", "three"))->should->includes("one", "three");
 		});
+		
+		$spec->it("should pass with include call", function($spec, $data) {
+			$spec(array("one", "two", "three"))->should->include("one");
+		});
 	});
 	
 	$spec->context("testing 'rematch' spectations", function($spec) {

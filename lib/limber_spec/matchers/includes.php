@@ -22,6 +22,11 @@ require_once "limber_spec/matchers/base.php";
 
 class Includes extends Base
 {
+	public static function name()
+	{
+		return array("includes", "include");
+	}
+	
 	public function failure_message()
 	{
 		return "expected " . $this->var_dump($this->actual) . " to include " . $this->var_dump($this->expected);
