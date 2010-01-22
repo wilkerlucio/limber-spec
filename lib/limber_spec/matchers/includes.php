@@ -32,6 +32,13 @@ class Includes extends Base
 		return "expected " . $this->var_dump($this->against) . " to exclude " . $this->var_dump($this->expected);
 	}
 	
+	public function set_args()
+	{
+		$args = func_get_args();
+		
+		$this->expected = count($args) > 1 ? array_flatten($args) : $args[0];
+	}
+	
 	public function match()
 	{
 		if (is_array($this->expected)) {
