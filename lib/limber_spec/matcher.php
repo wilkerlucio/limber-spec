@@ -33,7 +33,13 @@ class Matcher
 	
 	public static function add_matcher($matcher)
 	{
-		self::$matchers[$matcher::name()] = $matcher;
+		$names = $matcher::name();
+		
+		if (!is_array($names)) $names = array($names);
+		
+		foreach ($names as $name) {
+			self::$matchers[$name] = $matcher;
+		}
 	}
 	
 	public function match()
