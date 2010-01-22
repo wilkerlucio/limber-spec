@@ -105,6 +105,16 @@ describe("Limber-Spec", function($spec) {
 		});
 	});
 	
+	$spec->context("testing 'satisfy' spectations", function($spec) {
+		$spec->it("should pass if the value satisfies the block", function($spec, $data) {
+			$spec(5)->should->satisfy(function($n) { return $n > 3; });
+		});
+		
+		$spec->it("should fail if the value don't satisfies the block", function($spec, $data) {
+			$spec(5)->should->satisfy(function($n) { return $n > 6; });
+		});
+	});
+	
 	$spec->context("testing before_each filter", function($spec) {
 		$spec->before_each(function($data) {
 			$data->string = "sample data";
