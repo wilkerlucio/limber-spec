@@ -24,6 +24,11 @@ class ThrowException extends Base
 {
 	private $got_exception;
 	
+	public static function name()
+	{
+		return array("throw", "throw_exception");
+	}
+	
 	public function failure_message()
 	{
 		return "expected to throw " . $this->var_dump($this->expected) . ", got " . $this->got_exception;
