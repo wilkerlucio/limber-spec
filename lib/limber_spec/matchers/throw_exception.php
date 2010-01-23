@@ -20,34 +20,37 @@ namespace LimberSpec\Matchers;
 
 require_once "limber_spec/matchers/base.php";
 
-class ThrowException extends Base
+class ThrowException
 {
+	private $actual;
+	private $expected;
 	private $got_exception;
 	
-	public static function name()
+	public function __construct($actual)
 	{
-		return array("throw", "throw_exception");
+		$this->actual = $actual;
 	}
 	
 	public function failure_message()
 	{
-		return "expected to throw " . $this->var_dump($this->expected) . ", got " . $this->got_exception;
+		return "expected to throw " . var_dump($this->expected) . ", got " . $this->got_exception;
 	}
 	
 	public function failure_message_for_should_not()
 	{
-		return "expected to don't throw " . $this->var_dump($this->expected);
+		return "expected to don't throw " . var_dump($this->expected);
 	}
 	
-	public function match()
+	public function match($expected)
 	{
+		$this->expected = $expected;
 		$this->got_exception = "no exception";
 		
 		try {
 			$method = $this->actual;
 			$method();
 		} catch (\Exception $e) {
-			$this->got_exception = $this->var_dump(get_class($e));
+			$this->got_exception = var_dump(get_class($e));
 			
 			if (get_class($e) == $this->expected) {
 				return true;
@@ -60,4 +63,4 @@ class ThrowException extends Base
 	}
 }
 
-\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\ThrowException");
+\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\ThrowException", array("throw", "throw_exception"));

@@ -18,61 +18,27 @@
 
 namespace LimberSpec\Matchers;
 
-abstract class Base
+function var_dump($data)
 {
-	protected $expected;
-	protected $actual;
+	$type = gettype($data);
 	
-	public function __construct($actual, $expected)
-	{
-		call_user_func_array(array($this, "set_args"), $expected);
-		$this->actual = $actual;
-	}
-	
-	public function set_args($expected)
-	{
-		$this->expected = $expected;
-	}
-	
-	public function failure_message()
-	{
-		return $this->failure_message;
-	}
-	
-	public function failure_message_for_should_not()
-	{
-		return "don't " . $this->failure_message();
-	}
-	
-	public abstract function match();
-	
-	protected function var_dump($data)
-	{
-		$type = gettype($data);
-		
-		switch ($type) {
-			case "string":
-				return "'{$data}'";
-			case "boolean":
-				return $data ? 'true' : 'false';
-			case "NULL":
-				return 'null';
-			case "integer":
-				return sprintf("%d", $data);
-			case "double":
-			case "float":
-				return sprintf("%f", $data);
-			case "array":
-				return 'array(' . implode(', ', array_map(array($this, 'var_dump'), $data)) . ')';
-			case "object":
-				return $data->toString();
-			default:
-				throw new Exception("Unknow type '$type' when dumping data");
-		}
-	}
-	
-	public static function name()
-	{
-		return str_underscore(str_demodulize(get_called_class()));
+	switch ($type) {
+		case "string":
+			return "'{$data}'";
+		case "boolean":
+			return $data ? 'true' : 'false';
+		case "NULL":
+			return 'null';
+		case "integer":
+			return sprintf("%d", $data);
+		case "double":
+		case "float":
+			return sprintf("%f", $data);
+		case "array":
+			return 'array(' . implode(', ', array_map(array($this, 'var_dump'), $data)) . ')';
+		case "object":
+			return $data->toString();
+		default:
+			throw new Exception("Unknow type '$type' when dumping data");
 	}
 }

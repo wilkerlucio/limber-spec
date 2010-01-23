@@ -24,6 +24,7 @@ class Matcher
 	private $current;
 	private $matcher;
 	private $negate;
+	private $args;
 	
 	public function __construct($current)
 	{
@@ -31,10 +32,9 @@ class Matcher
 		$this->negate = false;
 	}
 	
-	public static function add_matcher($matcher)
+	public static function add_matcher($matcher, $names = null)
 	{
-		$names = $matcher::name();
-		
+		if ($names === null) $names = str_underscore(str_demodulize($matcher));
 		if (!is_array($names)) $names = array($names);
 		
 		foreach ($names as $name) {
@@ -44,7 +44,7 @@ class Matcher
 	
 	public function match()
 	{
-		$result = $this->matcher->match();
+		$result = call_user_func_array(array($this->matcher, "match"), $this->args);
 		
 		return $this->negate ? !$result : $result;
 	}
@@ -52,7 +52,11 @@ class Matcher
 	public function failure_message()
 	{
 		if ($this->negate) {
-			return $this->matcher->failure_message_for_should_not();
+			if (method_exists($this->matcher, "failure_message_for_should_not")) {
+				return $this->matcher->failure_message_for_should_not();
+			} else {
+				return "don't " . $this->matcher->failure_message();
+			}
 		} else {
 			return $this->matcher->failure_message();
 		}
@@ -74,8 +78,9 @@ class Matcher
 	{
 		if (isset(self::$matchers[$method])) {
 			$class_name = self::$matchers[$method];
-			$class = new $class_name($this->current, $args);
+			$class = new $class_name($this->current);
 			
+			$this->args = $args;
 			$this->matcher = $class;
 			
 			return $class;

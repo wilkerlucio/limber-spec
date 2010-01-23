@@ -20,16 +20,26 @@ namespace LimberSpec\Matchers;
 
 require_once "limber_spec/matchers/base.php";
 
-class Be extends Base
+class Be
 {
-	public function failure_message()
+	private $actual;
+	private $expected;
+	
+	public function __construct($actual)
 	{
-		return "expected " . $this->var_dump($this->expected) . " to be " . $this->var_dump($this->actual);
+		$this->actual = $actual;
 	}
 	
-	public function match()
+	public function failure_message()
 	{
-		return ($this->actual === $this->expected);
+		return "expected " . var_dump($this->expected) . " to be " . var_dump($this->actual);
+	}
+	
+	public function match($expected)
+	{
+		$this->expected = $expected;
+		
+		return ($this->actual === $expected);
 	}
 }
 

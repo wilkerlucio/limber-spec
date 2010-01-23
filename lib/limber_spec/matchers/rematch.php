@@ -20,15 +20,25 @@ namespace LimberSpec\Matchers;
 
 require_once "limber_spec/matchers/base.php";
 
-class Rematch extends Base
+class Rematch
 {
-	public function failure_message()
+	private $actual;
+	private $expected;
+	
+	public function __construct($actual)
 	{
-		return "expected " . $this->var_dump($this->actual) . " to match with expression " . $this->var_dump($this->expected);
+		$this->actual = $actual;
 	}
 	
-	public function match()
+	public function failure_message()
 	{
+		return "expected " . var_dump($this->actual) . " to match with expression " . var_dump($this->expected);
+	}
+	
+	public function match($expected)
+	{
+		$this->expected = $expected;
+		
 		return preg_match($this->expected, $this->actual);
 	}
 }

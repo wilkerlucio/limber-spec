@@ -20,32 +20,30 @@ namespace LimberSpec\Matchers;
 
 require_once "limber_spec/matchers/base.php";
 
-class Includes extends Base
+class Includes
 {
-	public static function name()
+	private $actual;
+	private $expected;
+	
+	public function __construct($actual)
 	{
-		return array("includes", "include");
+		$this->actual = $actual;
 	}
 	
 	public function failure_message()
 	{
-		return "expected " . $this->var_dump($this->actual) . " to include " . implode(", ", array_map(array($this, "var_dump"), $this->expected));
+		return "expected " . var_dump($this->actual) . " to include " . implode(", ", array_map("var_dump", $this->expected));
 	}
 	
 	public function failure_message_for_should_not()
 	{
-		return "expected " . $this->var_dump($this->actual) . " to exclude " . implode(", ", array_map(array($this, "var_dump"), $this->expected));
-	}
-	
-	public function set_args()
-	{
-		$args = func_get_args();
-		
-		$this->expected = $args;
+		return "expected " . var_dump($this->actual) . " to exclude " . implode(", ", array_map("var_dump", $this->expected));
 	}
 	
 	public function match()
 	{
+		$this->expected = func_get_args();
+		
 		if (is_array($this->expected)) {
 			$actual = $this->actual;
 			
@@ -58,4 +56,4 @@ class Includes extends Base
 	}
 }
 
-\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\Includes");
+\LimberSpec\Matcher::add_matcher("\\LimberSpec\\Matchers\\Includes", array("includes", "include"));

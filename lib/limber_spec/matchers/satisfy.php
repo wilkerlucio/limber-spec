@@ -20,17 +20,22 @@ namespace LimberSpec\Matchers;
 
 require_once "limber_spec/matchers/base.php";
 
-class Satisfy extends Base
+class Satisfy
 {
-	public function failure_message()
+	private $actual;
+	
+	public function __construct($actual)
 	{
-		return "expected " . $this->var_dump($this->actual) . " to satisfy the block";
+		$this->actual = $actual;
 	}
 	
-	public function match()
+	public function failure_message()
 	{
-		$block = $this->expected;
-		
+		return "expected " . var_dump($this->actual) . " to satisfy the block";
+	}
+	
+	public function match($block)
+	{
 		return $block($this->actual);
 	}
 }
