@@ -32,12 +32,12 @@ class Includes
 	
 	public function failure_message()
 	{
-		return "expected " . var_dump($this->actual) . " to include " . implode(", ", array_map("var_dump", $this->expected));
+		return "expected " . var_dump($this->actual) . " to include " . implode(", ", array_map("LimberSpec\\Matchers\\var_dump", $this->expected));
 	}
 	
 	public function failure_message_for_should_not()
 	{
-		return "expected " . var_dump($this->actual) . " to exclude " . implode(", ", array_map("var_dump", $this->expected));
+		return "expected " . var_dump($this->actual) . " to exclude " . implode(", ", array_map("LimberSpec\\Matchers\\var_dump", $this->expected));
 	}
 	
 	public function match()

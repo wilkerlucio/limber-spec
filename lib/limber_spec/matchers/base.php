@@ -35,7 +35,7 @@ function var_dump($data)
 		case "float":
 			return sprintf("%f", $data);
 		case "array":
-			return 'array(' . implode(', ', array_map(array($this, 'var_dump'), $data)) . ')';
+			return 'array(' . implode(', ', array_map('LimberSpec\\Matchers\\var_dump', $data)) . ')';
 		case "object":
 			return $data->toString();
 		default:
