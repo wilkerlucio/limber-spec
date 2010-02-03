@@ -47,6 +47,8 @@ class Includes
 		if (is_array($this->expected)) {
 			$actual = $this->actual;
 			
+			if (!is_array($actual)) return false;
+			
 			return array_all($this->expected, function($item) use ($actual) {
 				return in_array($item, $actual);
 			});
