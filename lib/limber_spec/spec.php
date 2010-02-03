@@ -66,7 +66,7 @@ class Spec
 				"description" => $this->description,
 				"failure_message" => $failure_message
 			);
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			return array(
 				"kind" => "spec",
 				"pass" => false,
