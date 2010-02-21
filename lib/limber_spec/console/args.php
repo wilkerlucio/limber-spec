@@ -64,7 +64,7 @@ class Args
 		$formater = $this->option("format", "simple");
 		$class_name = "\\LimberSpec\\Console\\Format\\" . ucfirst($formater);
 		
-		require_once dirname(__FILE__) . "/Format/{$formater}.php";
+		require_once dirname(__FILE__) . "/format/{$formater}.php";
 		
 		return new $class_name($results);
 	}
